@@ -28,3 +28,9 @@ Dated, factual record of what was done and what was found. Add your own entries 
 - Corrected estimator gives zero spread for many liquid stocks; 10 bp floor sensitivity added (momentum net 23.9% -> 23.4%).
 - **H6 refuted:** deleting all distressed exits inflates momentum (+2.52 pp) slightly more than EW (+2.32); the synthetic market predicted EW +3.88 > momentum +2.53. Using today's top-500 list backwards inflates momentum by +21.7 pp/yr. Idea to test next: do Indian firms that die often have strong 12-month momentum shortly before failing?
 - Momentum survives costs and tax at Rs 10 lakh (21.9% vs EW 11.4%), falls to 12.8% at Rs 100 crore. Reversal dies after costs (90%/month turnover). Low vol: Sharpe 1.00 vs 0.64, max drawdown -19% vs -54%, but lower after-tax return than EW.
+
+## 2026-09-26 (night) - follow-ups and tool (AI-assisted)
+
+- E5 (exploratory): rank-based test underpowered (6-13 failures still in the universe near exit). Exposure test instead: momentum's positions in later-failed firms earned -2.60%/month in India vs +0.18% in the synthetic market; EW -2.43% vs -0.44%. Explains H6: Indian momentum portfolios hold failing companies during the collapse.
+- E6 (exploratory): NSE P/E files exist only from 2024. Top-decile earnings yield -0.4%/yr vs EW +2.1% over 31 months; 95% interval of the difference -9.1 to +2.9 points. Inconclusive.
+- Educational tool (docs/site/tool.html): 41 precomputed scenario paths; every number checked against RESULTS_real.md.

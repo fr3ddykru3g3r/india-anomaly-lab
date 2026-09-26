@@ -1,0 +1,14 @@
+{
+  "first_holding_month":"2024-03",
+  "months":31,
+  "value_top_decile_gross_cagr":-0.0039083589,
+  "ew_gross_cagr":0.0214261074,
+  "value_top_decile_net_cagr":-0.0228159026,
+  "ew_net_cagr":0.0245946362,
+  "gross_diff_ci95":[
+    -0.0908195934,
+    0.0291416602
+  ],
+  "avg_names":21.064516129,
+  "note":"exploratory; ~28 months; not a test of the value premium"
+}

@@ -54,11 +54,12 @@ NIFTYBEES (investable Nifty 50 ETF): 10.7% gross.
 
 ## Honesty points that make the project stronger (put them in; judges look for them)
 
-1. **H6 was refuted.** Present it as the main scientific finding, not a failure. Proposed explanation to test next: in India, stocks that were recent winners also collapse (boom-bust in small/mid caps), so momentum portfolios hold future failures. The synthetic market only let firms fail after falling.
+1. **H6 was refuted.** Present it as the main scientific finding, not a failure. The follow-up (E5, exploratory, label it as such) shows why: in the simulation, momentum's positions in future failures earned +0.2%/month (bought while rising, sold before the collapse); in India they lost -2.6%/month, as badly as equal weight's (-2.4%). Indian momentum portfolios ride failing companies down. Add E5's figure (`figures/real/e5_positions_in_future_failures.png`) as figure 3b.
 2. **Amendment 1.** After the first real run I found a bug in the spread estimator (it inflated costs). I fixed it, logged a dated amendment, and kept the old outputs (`results/real_pre_amendment1/`). Under the buggy costs, H2 was *not* supported (CI -0.04 to +14.6). Report both. A 10 bp spread-floor sensitivity changes momentum's net CAGR only from 23.9% to 23.4%.
 3. **Deflated Sharpe for momentum is 0.75**, below the conventional 0.95, even though SPA rejects luck. Say which test answers which question.
 4. **Concentration:** momentum's cumulative return in the 2021-24 retail boom was +446% vs +206% for EW. The training period (2011-17) was also strong (28% gross), so it is not only the boom, but the drawdown is -46%.
-5. **Limitations:** price returns (dividends add ~1.3-1.6 pp for all portfolios from 2010); rights issues unadjusted; daily-data spread estimates; liquidity universe, not the Nifty 500.
+5. **Value** (part of the original question) could only be checked on 31 months (NSE P/E files start in 2024): -0.4%/yr vs +2.1% for EW, interval -9.1 to +2.9 points, i.e. inconclusive (E6). Say so; do not drop it.
+6. **Limitations:** price returns (dividends add ~1.3-1.6 pp for all portfolios from 2010); rights issues unadjusted; daily-data spread estimates; liquidity universe, not the Nifty 500.
 
 ## Section-by-section plan (IRIS limits)
 

@@ -194,7 +194,25 @@ Splits and bonuses: NSE records from 2010-06-28 (1059 split/bonus factors applie
 
 ![bias](../figures/real/e4_bias_vs_deletion.png)
 
-## 6. Known limitations (stated, not fixed)
+## 6. Exploratory (not pre-registered)
+### E5: why H6 was refuted - positions in companies that later failed
+
+| sample | rule | avg weight in future failures | monthly return on those positions | monthly return on other positions | drag (pp/yr) |
+|---|---|---|---|---|---|
+| India (real) | equal_weight | 4.6% | -2.43% | 1.38% | -2.10 |
+| India (real) | momentum | 3.6% | -2.60% | 2.46% | -2.19 |
+| India (real) | low_vol | 2.6% | -2.38% | 1.18% | -1.10 |
+| synthetic (E0 model) | equal_weight | 17.0% | -0.44% | 1.00% | -2.94 |
+| synthetic (E0 model) | momentum | 15.8% | 0.18% | 1.06% | -1.68 |
+| synthetic (E0 model) | low_vol | 10.3% | 0.02% | 0.72% | -0.86 |
+
+![e5](../figures/real/e5_positions_in_future_failures.png)
+
+### E6: value (earnings yield), short sample
+
+31 holding months from 2024-03 (NSE P/E files exist only from 2024). Top-decile earnings yield: -0.4% gross, -2.3% after costs; same-universe EW 2.1% gross. 95% interval of the gross difference: -9.1% to 2.9%. Too short to test the value premium; reported so that it is not silently dropped.
+
+## 7. Known limitations (stated, not fixed)
 
 - Price returns are the primary series; dividend records exist only from Jul 2010.
 - Demergers and rights issues are not adjusted (no reliable factor in the records); large unexplained gaps are listed in `results/real/e1_unexplained_gaps.csv`.
@@ -203,6 +221,6 @@ Splits and bonuses: NSE records from 2010-06-28 (1059 split/bonus factors applie
 - Exchange and SEBI fees use today's rates for all years; STT, stamp duty and taxes are dated.
 - Surcharge on tax ignored; tax paid pro-rata without triggering further gains.
 
-## 7. Discussion
+## 8. Discussion
 
 *Written by the author.*

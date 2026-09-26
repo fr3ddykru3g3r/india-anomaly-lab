@@ -4,7 +4,7 @@
 
 **Why it matters.** Most shared backtests quietly use data that did not exist at the time: today's index members, companies that later went bust silently removed, prices adjusted with later information. This project measures how much of a strategy's apparent return is real, how much is data artefact, and how much disappears after costs and tax.
 
-**Start here:** [one-page summary](PORTFOLIO.md) · [results](reports/RESULTS_real.md) · [project site](docs/site/index.html) · [pre-registration](docs/PREREGISTRATION.md) · [lab notebook](docs/LAB_NOTEBOOK.md) · [IRIS submission kit](iris/FRAMING.md)
+**Start here:** [one-page summary](PORTFOLIO.md) · [results](reports/RESULTS_real.md) · [project site](docs/site/index.html) · [interactive tool](docs/site/tool.html) · [pre-registration](docs/PREREGISTRATION.md) · [lab notebook](docs/LAB_NOTEBOOK.md) · [IRIS submission kit](iris/FRAMING.md)
 
 ## What is in here
 
@@ -26,8 +26,29 @@
 | E2 | Do the anomalies exist gross of frictions? | `experiments/e2_replicate.py` |
 | E3 | Do they survive costs, tax, capacity limits and multiple testing? | `experiments/e3_reality.py` |
 | E4 | How much do survivor-only and vendor-style data inflate Indian backtests, and does it match E0? | `experiments/e4_bias.py` |
+| E5 | *(exploratory)* Why was H6 refuted? | `experiments/e5_why_h6_failed.py` |
+| E6 | *(exploratory)* Value on the short 2024-26 sample | `experiments/e6_value_short_sample.py` |
+| E7 | Scenario data for the educational tool | `experiments/e7_tool_data.py` |
 
 E2-E4 refuse to run on real data until `docs/PREREGISTRATION.md` is frozen with the git tag `prereg-v1`, and again if that file changes afterwards. `--data synthetic` dry-runs them on a known market.
+
+## Project goals and where each is met
+
+| Goal | Status | Evidence |
+|---|---|---|
+| Reproduce published anomalies | Done: momentum, reversal, low volatility, 52-week high; value only as a short 2024-26 exploratory test (NSE publishes P/E only from 2024) | E2, E6 |
+| Account for survivorship and look-ahead bias | Done: point-in-time universe, dead companies kept, next-open execution, look-ahead unit test; bias measured directly | E1, E4, tests |
+| Test across time periods | Done: train 2011-17 / untouched test 2018+, extended 2007+ sample, five market episodes | E2, E3 |
+| Do results survive realistic costs? | Done: dated statutory costs, spread, impact, capacity to Rs 100 crore, capital-gains tax | E3 |
+| Publish failed models too | Done: all 12 pre-registered variants, refuted H6, failed H5a, inconclusive value, pre-amendment results kept | `docs/site/tool.html`, `reports/RESULTS_real.md` |
+| Educational backtesting tool | Done: interactive page (strategy x data shortcut x costs x tax x size) + trade-cost calculator | `docs/site/tool.html`, `docs/site/index.html` |
+| No real-money trading, no "AI alpha" claims | Done: measurement study; no ML | this README |
+
+## Headline results (primary sample Aug 2011 - Sep 2026)
+
+- Applying today's top-500 list to the past inflates a momentum backtest by **+21.7 percentage points a year** (48.4% vs 26.7%).
+- The simulation's prediction that equal-weight portfolios suffer most from deleted failures (H6) was **refuted**: in India, momentum portfolios held failing companies while they collapsed (E5, exploratory).
+- Momentum beats the same-universe equal-weight portfolio after Indian costs and tax at Rs 10 lakh (21.9% vs 11.4% a year); the edge falls to 12.8% at Rs 100 crore. Reversal is destroyed by costs; low volatility reduces risk, not return.
 
 ## Findings about the data (before any strategy was tested)
 

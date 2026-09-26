@@ -12,6 +12,10 @@ $PY experiments/e1_data_coverage.py
 $PY experiments/e2_replicate.py --data real
 $PY experiments/e3_reality.py --data real
 $PY experiments/e4_bias.py --data real
+$PY experiments/e5_why_h6_failed.py
+$PY experiments/e6_value_short_sample.py
+$PY experiments/e7_tool_data.py
 $PY scripts/build_report.py real
 $PY scripts/build_site.py real
+$PY scripts/build_tool.py
 $PY scripts/key_numbers.py real

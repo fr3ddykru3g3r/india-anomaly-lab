@@ -42,6 +42,7 @@ code{font-size:13px}
 <p class="lede">Momentum, low volatility and short-term reversal look good in most published backtests. This project re-tests them on every stock that traded on NSE, including the companies that later disappeared, with Indian trading costs and taxes, realistic liquidity and correction for the number of strategies tried. The rules were frozen in a pre-registration before any real result was computed.</p>
 <div id="banner"></div>
 <div class="grid" id="kpis"></div>
+<p><a href="tool.html"><b>Try the interactive backtest reality check &rarr;</b></a> Switch on the shortcuts most backtests take and watch the results inflate.</p>
 
 <h2>What survives</h2>
 <p>Gross, after costs (₹10 lakh portfolio, dated statutory charges, spread and impact), and after Indian capital-gains tax, full period.</p>
@@ -57,6 +58,10 @@ code{font-size:13px}
 <input id="del" type="range" min="0" max="100" step="20" value="60">
 <div id="biasbars"></div>
 <figure><img src="img/e4_bias_vs_deletion.png" alt="Bias vs deletion share"><figcaption>Bias in CAGR (percentage points a year) as dead companies are deleted.</figcaption></figure>
+
+<h2>Why the simulation was wrong about India</h2>
+<p>The simulation assumed companies fail only after falling, so momentum portfolios would avoid them. In India, momentum portfolios held companies that later failed while those stocks were collapsing, losing about as much on them as an equal-weight portfolio did. (Exploratory analysis, not pre-registered.)</p>
+<figure><img src="img/e5_positions_in_future_failures.png" alt="Return on positions in future failures"><figcaption>Average monthly return earned on positions in companies that later failed.</figcaption></figure>
 
 <h2>Cost of one trade in India today</h2>
 <p>Delivery trade on NSE with a discount broker: STT, stamp duty, exchange and SEBI fees, GST and the depository charge. Spread and impact come on top.</p>

@@ -148,7 +148,25 @@ def main(kind: str = "real") -> Path:
         a(md_table(piv) + "\n")
         a(f"![bias]({fig}/e4_bias_vs_deletion.png)\n")
 
-    a("## 6. Known limitations (stated, not fixed)\n")
+    e5 = res / "e5_exposure_to_future_failures.csv"
+    if e5.exists():
+        x = pd.read_csv(e5)
+        a("## 6. Exploratory (not pre-registered)\n### E5: why H6 was refuted - positions in companies that later failed\n")
+        a(md_table(pd.DataFrame({"sample": x["sample"], "rule": x["rule"],
+                                 "avg weight in future failures": x["avg_weight_in_future_failures"].map(pct),
+                                 "monthly return on those positions": x["monthly_return_on_those_positions"].map(lambda v: pct(v, 2)),
+                                 "monthly return on other positions": x["monthly_return_on_other_positions"].map(lambda v: pct(v, 2)),
+                                 "drag (pp/yr)": x["drag_pp_per_year"].map(pp)})) + "\n")
+        a(f"![e5]({fig}/e5_positions_in_future_failures.png)\n")
+    e6 = res / "e6_value_short_sample.json"
+    if e6.exists():
+        v = json.loads(e6.read_text())
+        a("### E6: value (earnings yield), short sample\n")
+        a(f"{v['months']} holding months from {v['first_holding_month']} (NSE P/E files exist only from 2024). Top-decile earnings "
+          f"yield: {pct(v['value_top_decile_gross_cagr'])} gross, {pct(v['value_top_decile_net_cagr'])} after costs; same-universe EW "
+          f"{pct(v['ew_gross_cagr'])} gross. 95% interval of the gross difference: {pct(v['gross_diff_ci95'][0])} to "
+          f"{pct(v['gross_diff_ci95'][1])}. Too short to test the value premium; reported so that it is not silently dropped.\n")
+    a("## 7. Known limitations (stated, not fixed)\n")
     a("- Price returns are the primary series; dividend records exist only from Jul 2010.\n"
       "- Demergers and rights issues are not adjusted (no reliable factor in the records); large unexplained gaps "
       "are listed in `results/real/e1_unexplained_gaps.csv`.\n"
@@ -156,7 +174,7 @@ def main(kind: str = "real") -> Path:
       "- Spread and impact are estimated from daily data; no tick data.\n"
       "- Exchange and SEBI fees use today's rates for all years; STT, stamp duty and taxes are dated.\n"
       "- Surcharge on tax ignored; tax paid pro-rata without triggering further gains.\n")
-    a("## 7. Discussion\n\n*Written by the author.*\n")
+    a("## 8. Discussion\n\n*Written by the author.*\n")
     path = ROOT / "reports" / f"RESULTS_{kind}.md"
     path.parent.mkdir(exist_ok=True)
     path.write_text("\n".join(out))
