@@ -4,6 +4,8 @@
 
 **Why it matters.** Most shared backtests quietly use data that did not exist at the time: today's index members, companies that later went bust silently removed, prices adjusted with later information. This project measures how much of a strategy's apparent return is real, how much is data artefact, and how much disappears after costs and tax.
 
+**Live:** [project site](https://fr3ddykru3g3r.github.io/india-anomaly-lab/site/) · [interactive backtest reality check](https://fr3ddykru3g3r.github.io/india-anomaly-lab/site/tool.html)
+
 **Start here:** [one-page summary](PORTFOLIO.md) · [results](reports/RESULTS_real.md) · [project site](docs/site/index.html) · [interactive tool](docs/site/tool.html) · [pre-registration](docs/PREREGISTRATION.md) · [lab notebook](docs/LAB_NOTEBOOK.md) · [IRIS submission kit](iris/FRAMING.md)
 
 ## What is in here
