@@ -1,7 +1,8 @@
 id,claim,evidence,supported
 H1,12-1 momentum long-short earns a positive gross return,"mean 2.09%/month, Newey-West t = 4.72",True
-H2,Momentum top decile beats same-universe EW net of costs and taxes (test period),"+6.64 pp/yr, 95% CI [-0.04, +14.58]",False
+H2,Momentum top decile beats same-universe EW net of costs and taxes (test period),"+11.56 pp/yr, 95% CI [+4.27, +20.64]",True
 H3,The best grid variant beats EW after correcting for all variants tried,"SPA p = 0.000, Reality Check p = 0.000 (12 variants)",True
 H4,Low-volatility decile has a higher Sharpe ratio than EW (gross),"Sharpe 1.00 vs 0.64; 95% CI of difference [0.12, 0.60]",True
 H5a,1-month reversal long-short is profitable gross,"mean -0.50%/month, t = -1.61",False
-H5b,Reversal top decile does NOT beat EW net of costs (test period),"-34.26 pp/yr, 95% CI [-41.10, -27.64]",True
+H5b,Reversal top decile does NOT beat EW net of costs (test period),"-10.54 pp/yr, 95% CI [-14.62, -6.46]",True
+H6,Deleting dead companies inflates EW more than momentum and low-volatility (E0 prediction),"bias at 100% deletion: EW +2.32, momentum +2.52, low-vol +1.11 pp/yr",False

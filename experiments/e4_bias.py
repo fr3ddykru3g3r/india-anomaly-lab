@@ -102,8 +102,20 @@ def main():
     fig.tight_layout()
     fig.savefig(C.fig_path(a.data, "e4_bias_vs_deletion"), dpi=160)
 
+    # H6 verdict (pre-registered): bias at 100% deletion, EW > momentum and EW > low-vol
+    full = summ[(summ.view == "vendor") & (summ.fraction == 1.0)].set_index("rule")["mean"]
+    h6 = {"id": "H6", "claim": "Deleting dead companies inflates EW more than momentum and low-volatility (E0 prediction)",
+          "evidence": f"bias at 100% deletion: EW {full['equal_weight']:+.2f}, momentum {full['momentum']:+.2f}, "
+                      f"low-vol {full['low_vol']:+.2f} pp/yr",
+          "supported": bool(full["equal_weight"] > full["momentum"] and full["equal_weight"] > full["low_vol"])}
+    hp = out / "e3_hypotheses.csv"
+    if hp.exists():
+        h = pd.read_csv(hp)
+        h = pd.concat([h[h["id"] != "H6"], pd.DataFrame([h6])], ignore_index=True)
+        h.to_csv(hp, index=False)
     pd.set_option("display.width", 200)
     print(summ.round(2).to_string(index=False))
+    print(h6)
     print(meta)
 
 

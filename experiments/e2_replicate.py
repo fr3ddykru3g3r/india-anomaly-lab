@@ -70,8 +70,11 @@ def main():
         r = long_only[v.name]
         ax.plot(r.index.to_timestamp(), (1 + r).cumprod(), color=C.COLORS[v.signal], lw=1.2, label=v.name)
     ax.set_yscale("log")
-    ax.axvline(pd.Timestamp("2016-01-01"), color="#b8b7b0", lw=1)
-    ax.text(pd.Timestamp("2016-03-01"), ax.get_ylim()[0] * 1.1, "test period ->", fontsize=8, color="#8a8983")
+    ax.yaxis.set_major_formatter(C.plt.FuncFormatter(lambda y, _: f"Rs {y:g}"))
+    ax.yaxis.set_minor_formatter(C.plt.NullFormatter())
+    test0 = (study.TRAIN_END + 1).start_time
+    ax.axvline(test0, color="#b8b7b0", lw=1)
+    ax.text(test0 + pd.Timedelta(days=40), ax.get_ylim()[0] * 1.1, "test period ->", fontsize=8, color="#8a8983")
     ax.set_title("Gross growth of Rs 1 (log scale), before costs and taxes", loc="left")
     ax.legend(frameon=False, fontsize=8, ncol=2)
     fig.tight_layout()

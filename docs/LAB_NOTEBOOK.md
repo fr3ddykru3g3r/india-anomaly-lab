@@ -21,3 +21,10 @@ Dated, factual record of what was done and what was found. Add your own entries 
 - **Finding 8:** demergers (Tata Motors 2025, Vedanta 2026, Siemens 2025, Tata Chemicals 2020...) appear as 40-65% one-day losses. 130 recorded demergers are treated as value-neutral on the ex-date.
 - After fixes: 16 unexplained overnight gaps > 40% in liquid stocks (mostly rights issues and pre-2010), listed in results/real/e1_unexplained_gaps.csv.
 - Pre-registration updated with these data rules, then frozen (tag prereg-v1). No strategy returns were computed on real data before the tag.
+
+## 2026-09-26 (evening) - real results (AI-assisted)
+
+- E2-E3 first run after the tag. Sanity check on costs: median estimated half-spread 72 bps in the universe, implausible for India's 500 most liquid stocks. Cause: the Abdi-Ranaldo code clipped each two-day estimate before averaging. Fixed, recorded as Amendment 1 (tag prereg-v1-amend1), old outputs kept in results/real_pre_amendment1/. The H2 verdict changed (not supported -> supported); both are reported.
+- Corrected estimator gives zero spread for many liquid stocks; 10 bp floor sensitivity added (momentum net 23.9% -> 23.4%).
+- **H6 refuted:** deleting all distressed exits inflates momentum (+2.52 pp) slightly more than EW (+2.32); the synthetic market predicted EW +3.88 > momentum +2.53. Using today's top-500 list backwards inflates momentum by +21.7 pp/yr. Idea to test next: do Indian firms that die often have strong 12-month momentum shortly before failing?
+- Momentum survives costs and tax at Rs 10 lakh (21.9% vs EW 11.4%), falls to 12.8% at Rs 100 crore. Reversal dies after costs (90%/month turnover). Low vol: Sharpe 1.00 vs 0.64, max drawdown -19% vs -54%, but lower after-tax return than EW.
