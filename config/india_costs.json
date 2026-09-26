@@ -1,0 +1,102 @@
+{
+  "_purpose": "Dated Indian cash-equity (delivery) cost and tax schedule. A trade is costed with the regime in force on its date. Rates are fractions of traded value unless noted.",
+  "_verification": "status=verified means checked against a primary/broker schedule on 2026-09-26. status=VERIFY means taken from secondary summaries; confirm against the Finance Act / exchange circular before citing.",
+  "current_regime": {
+    "effective_from": "2024-10-01",
+    "stt_delivery_buy": 0.001,
+    "stt_delivery_sell": 0.001,
+    "stamp_duty_buy": 0.00015,
+    "exchange_txn_nse": 3.07e-05,
+    "sebi_turnover_fee": 1e-06,
+    "gst_rate_on_fees": 0.18,
+    "dp_charge_per_scrip_sold_inr": 15.34,
+    "brokerage_delivery": 0.0,
+    "status": "verified",
+    "sources": [
+      "https://zerodha.com/charges/ (STT 0.1% buy & sell delivery; NSE 0.00307%; SEBI Rs10/crore; stamp 0.015% buy; GST 18% on brokerage+SEBI+txn; DP Rs15.34/scrip)",
+      "https://www.nseindia.com/static/invest/first-time-investor-sebi-turnover-fees-stt-other-levies"
+    ]
+  },
+  "stt_history": [
+    {
+      "from": "2004-10-01",
+      "delivery_each_side": 0.00075,
+      "status": "VERIFY"
+    },
+    {
+      "from": "2006-06-01",
+      "delivery_each_side": 0.00125,
+      "status": "VERIFY"
+    },
+    {
+      "from": "2013-06-01",
+      "delivery_each_side": 0.001,
+      "status": "VERIFY"
+    }
+  ],
+  "stamp_duty_note": "Before 1 Jul 2020 stamp duty varied by state; model as 0.01% buy-side before that date (VERIFY) and 0.015% after the uniform regime.",
+  "capital_gains_tax_resident_individual": [
+    {
+      "from": "2004-10-01",
+      "stcg": 0.1,
+      "ltcg": 0.0,
+      "ltcg_exemption_inr": null,
+      "holding_days_for_long_term": 365,
+      "status": "VERIFY"
+    },
+    {
+      "from": "2008-04-01",
+      "stcg": 0.15,
+      "ltcg": 0.0,
+      "ltcg_exemption_inr": null,
+      "holding_days_for_long_term": 365,
+      "status": "VERIFY"
+    },
+    {
+      "from": "2018-04-01",
+      "stcg": 0.15,
+      "ltcg": 0.1,
+      "ltcg_exemption_inr": 100000,
+      "holding_days_for_long_term": 365,
+      "status": "VERIFY",
+      "note": "grandfathering of gains to 31 Jan 2018"
+    },
+    {
+      "from": "2024-07-23",
+      "stcg": 0.2,
+      "ltcg": 0.125,
+      "ltcg_exemption_inr": 125000,
+      "holding_days_for_long_term": 365,
+      "status": "verified",
+      "sources": [
+        "https://www.incometaxindia.gov.in/w/capital-gain",
+        "https://cleartax.in/s/long-term-capital-gains-ltcg-tax"
+      ]
+    }
+  ],
+  "market_impact": {
+    "model": "half-spread from the Abdi-Ranaldo (2017) daily estimator + square-root impact k * sigma_daily * sqrt(order / ADV)",
+    "k": 0.7,
+    "note": "Estimated from daily OHLC because Indian tick data is not freely available; report results at k = 0, 0.7, 1.5."
+  },
+  "cess_on_tax": [
+    {
+      "from_fy": 2007,
+      "rate": 0.03,
+      "status": "VERIFY",
+      "note": "education cess 2% + secondary and higher education cess 1% (FY2007-08 to FY2017-18)"
+    },
+    {
+      "from_fy": 2018,
+      "rate": 0.04,
+      "status": "VERIFY",
+      "note": "health and education cess 4% from FY2018-19"
+    }
+  ],
+  "surcharge_note": "Surcharge depends on total income and is ignored (small investor assumed).",
+  "loss_carry_forward_years": 8,
+  "rebalance_band": {
+    "relative": 0.25,
+    "note": "Continuing positions are only traded when they drift more than 25% away from target weight; entries and exits are always traded. Avoids paying the fixed DP charge on tiny trims."
+  }
+}

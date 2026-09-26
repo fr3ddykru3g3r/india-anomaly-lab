@@ -1,0 +1,7 @@
+id,claim,evidence,supported
+H1,12-1 momentum long-short earns a positive gross return,"mean 0.58%/month, Newey-West t = 3.59",True
+H2,Momentum top decile beats same-universe EW net of costs and taxes (test period),"-0.52 pp/yr, 95% CI [-3.62, +2.48]",False
+H3,The best grid variant beats EW after correcting for all variants tried,"SPA p = 0.005, Reality Check p = 0.025 (12 variants)",True
+H4,Low-volatility decile has a higher Sharpe ratio than EW (gross),"Sharpe 0.41 vs 0.41; 95% CI of difference [-0.10, 0.09]",False
+H5a,1-month reversal long-short is profitable gross,"mean -0.33%/month, t = -2.21",False
+H5b,Reversal top decile does NOT beat EW net of costs (test period),"-9.15 pp/yr, 95% CI [-12.79, -5.58]",True
