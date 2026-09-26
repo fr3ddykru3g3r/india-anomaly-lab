@@ -68,7 +68,7 @@ class Panel:
         return np.sqrt(var.where(n > 40))
 
     def half_spread(self, months: int = 3) -> pd.DataFrame:
-        return np.sqrt(self.ar_s2.rolling(months, min_periods=1).mean()) / 2
+        return np.sqrt(self.ar_s2.rolling(months, min_periods=1).mean().clip(lower=0)) / 2
 
     def history_months(self) -> pd.DataFrame:
         return self.close.notna().cumsum()

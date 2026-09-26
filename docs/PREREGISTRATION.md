@@ -77,4 +77,4 @@ Newey-West t-statistics; stationary block bootstrap (mean block 12 months, 5,000
 
 ## Amendments
 
-None yet.
+**Amendment 1 (2026-09-26, after the first real-data run of E2-E3).** *Bug fix.* The Abdi-Ranaldo half-spread was implemented by clipping each two-day estimate at zero before averaging, which biases spreads upward (median 72 bps in the study universe, implausibly high for India's 500 most liquid stocks). The estimator now averages over the window first and clips afterwards, as in the paper's monthly estimator. Consequence: the estimate is zero for many liquid stocks, which understates costs, so a sensitivity with a 10 bp half-spread floor is added (not a primary result). The pre-amendment outputs are kept unchanged in `results/real_pre_amendment1/` and the hypothesis tests are reported both ways. Tagged `prereg-v1-amend1`.

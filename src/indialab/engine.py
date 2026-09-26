@@ -24,6 +24,7 @@ class RunConfig:
     band: float = 0.25                # relative rebalance band for continuing positions
     tax: bool = True
     costs: bool = True
+    spread_floor: float = 0.0         # minimum half-spread (sensitivity, amendment 1)
 
 
 def trade_date(signal_month: pd.Period) -> pd.Timestamp:
@@ -75,7 +76,8 @@ def simulate(weights: pd.DataFrame, hold: pd.DataFrame, half_spread: pd.DataFram
         sell = np.clip(h - target, 0, None)
         cost = 0.0
         if cfg.costs:
-            c = C.trade_costs_vec(buy, sell, date, HS[i], SG[i], AD[i], cfg.k, cfg.brokerage)
+            hs = np.fmax(np.nan_to_num(HS[i]), cfg.spread_floor)
+            c = C.trade_costs_vec(buy, sell, date, hs, SG[i], AD[i], cfg.k, cfg.brokerage)
             cost = float(np.nansum(c))
         if book is not None:
             for j in np.flatnonzero(sell > 1e-6):

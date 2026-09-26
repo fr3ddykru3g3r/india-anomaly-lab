@@ -1,0 +1,77 @@
+{
+  "detector_used_before": "2010-06-28",
+  "factors_applied_by_source": {
+    "record": 1059,
+    "detector_gapfill": 782,
+    "detector": 335,
+    "record_scheme_neutral": 130
+  },
+  "detector": {
+    "params": {
+      "tol": 0.08,
+      "min_ratio": 1.45
+    },
+    "tuning": {
+      "tol": 0.08,
+      "min_ratio": 1.45,
+      "detected": 174,
+      "records": 162,
+      "matched": 150,
+      "precision": 0.8620689655172413,
+      "recall": 0.9259259259259259,
+      "f1": 0.8928571428571429
+    },
+    "validation": {
+      "tol": 0.08,
+      "min_ratio": 1.45,
+      "detected": 700,
+      "records": 644,
+      "matched": 576,
+      "precision": 0.8228571428571428,
+      "recall": 0.8944099378881988,
+      "f1": 0.8571428571428571
+    },
+    "split_date": "2015-05-12"
+  },
+  "dividend_events_with_amount": 19140,
+  "missing_session_days_repaired": [
+    "2006-05-02",
+    "2006-06-26",
+    "2006-10-23",
+    "2009-10-20",
+    "2010-02-08",
+    "2012-01-09",
+    "2012-03-05",
+    "2012-04-30",
+    "2012-09-10",
+    "2013-05-13",
+    "2013-11-05",
+    "2014-03-24",
+    "2016-11-01",
+    "2019-10-29",
+    "2020-11-17",
+    "2023-11-13",
+    "2026-02-02"
+  ],
+  "linking": {
+    "nodes": 4619,
+    "securities": 3949,
+    "isin_links": 505,
+    "symbol_change_links": 631,
+    "reused_symbols": 14
+  },
+  "record_stats": {
+    "ca_events_records": 20660,
+    "ca_split_bonus_records": 1129,
+    "ca_split_bonus_records_applied": 1059,
+    "ca_detector_events_applied": 335
+  },
+  "unexplained_overnight_gaps_gt_40pct": 1670,
+  "daily_returns_abs_gt_50pct": 477,
+  "daily_returns_total": 8349291,
+  "niftybees_cagr": 0.1127878809402818,
+  "niftybees_span": [
+    "2006-01-02",
+    "2026-09-25"
+  ]
+}

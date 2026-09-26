@@ -85,11 +85,13 @@ def main(kind: str = "real") -> Path:
     n = pd.read_csv(res / "e3_net_of_reality.csv")
     a("## 3. Reality layers\n### Gross -> costs -> tax (Rs 10 lakh, impact k = 0.7)\n")
     t = n[n.period.isin(["full", "test"])].copy()
-    for c in ("gross_cagr", "net_cagr", "net_after_tax_cagr", "net_cagr_brokerage_0.3pct", "net_max_dd"):
+    for c in ("gross_cagr", "net_cagr", "net_after_tax_cagr", "net_cagr_brokerage_0.3pct", "net_cagr_spread_floor_10bp",
+              "net_max_dd"):
         t[c] = t[c].map(pct)
     t["cost_drag_pp"] = (t["cost_drag_pp"] * 100).map(pp)
     t["avg_monthly_turnover"] = t["avg_monthly_turnover"].map(lambda x: pct(x, 0))
     cols = ["portfolio", "period", "gross_cagr", "net_cagr", "net_after_tax_cagr", "net_cagr_brokerage_0.3pct",
+            "net_cagr_spread_floor_10bp",
             "cost_drag_pp", "avg_monthly_turnover", "net_max_dd"]
     a(md_table(t[cols]) + "\n")
     a(f"![gross net tax]({fig}/e3_gross_net_tax.png)\n")

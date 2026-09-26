@@ -36,12 +36,14 @@ def main():
         net, _ = st.run(w, engine.RunConfig(tax=False), name)
         tx, summ = st.run(w, BASE, name)
         brk, _ = st.run(w, engine.RunConfig(tax=False, brokerage=0.003), name)
+        flo, _ = st.run(w, engine.RunConfig(tax=False, spread_floor=0.001), name)
         nets[name] = {"gross": g.loc[net.index], "net": net["net"], "net_tax": tx["net"]}
         for part in ("full", "train", "test"):
             sl = study.split(net["net"])[part].index
             rows.append({"portfolio": name, "period": part, "gross_cagr": cagr(g.loc[sl]),
                          "net_cagr": cagr(net["net"].loc[sl]), "net_after_tax_cagr": cagr(tx["net"].loc[sl]),
                          "net_cagr_brokerage_0.3pct": cagr(brk["net"].loc[sl]),
+                         "net_cagr_spread_floor_10bp": cagr(flo["net"].loc[sl]),
                          "avg_monthly_turnover": float(net["turnover"].loc[sl].mean()),
                          "cost_drag_pp": cagr(g.loc[sl]) - cagr(net["net"].loc[sl]),
                          "net_max_dd": integrity.perf(net["net"].loc[sl])["max_dd"]})

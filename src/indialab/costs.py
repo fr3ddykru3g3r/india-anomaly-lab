@@ -83,13 +83,13 @@ def abdi_ranaldo_half_spread(high: pd.Series, low: pd.Series, close: pd.Series) 
     """Abdi & Ranaldo (2017) close-high-low spread estimator, returned as a half-spread.
 
     s^2 = 4 * (c_t - eta_t) * (c_t - eta_{t+1}), eta = (log H + log L)/2, c = log C.
-    Negative two-day estimates are set to zero before averaging (as in the paper).
+    Returns the two-day products' running estimate: average s^2 over a window first, then clip
+    at zero and take the square root (the paper's monthly estimator).
     """
     eta = (np.log(high) + np.log(low)) / 2
     c = np.log(close)
     s2 = 4 * (c - eta) * (c - eta.shift(-1))
-    s2 = s2.clip(lower=0)
-    return np.sqrt(s2) / 2
+    return np.sqrt(s2.rolling(21, min_periods=5).mean().clip(lower=0)) / 2
 
 
 def statutory_rates(date) -> dict:

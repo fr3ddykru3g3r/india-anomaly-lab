@@ -1,0 +1,11 @@
+check,description,pass
+point_in_time_universe,Universe membership known at each date (no current lists applied backwards),True
+dead_firms_retained,Delisted / bankrupt / merged firms keep their histories and terminal returns,True
+coverage_ge_95,Price coverage of intended holdings >= 95% in every period,True
+same_universe_control,Strategy compared with equal weight of the same universe,True
+investable_benchmark,Compared with something an investor could actually have bought,True
+realistic_costs,Dated statutory costs + spread/impact at a stated capital,True
+out_of_sample,Rules and parameters fixed before an untouched test period,True
+parameter_stability,Neighbouring parameters give similar results,True
+multiple_testing,Number of variants tried is reported and corrected for (WRC/SPA or deflated Sharpe),True
+no_restated_data,No later-revised or later-published data used at a date it was unknown,True

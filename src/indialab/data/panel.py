@@ -220,7 +220,9 @@ def daily_panel(df: pd.DataFrame, symbol_changes: pd.DataFrame | None = None,
     eta = (np.log(df["high_adj"]) + np.log(df["low_adj"])) / 2
     c = np.log(df["px"])
     eta_next = eta.groupby(df["sec"]).shift(-1)
-    df["ar_s2"] = (4 * (c - eta) * (c - eta_next)).clip(lower=0)
+    # Two-day products are averaged over the month BEFORE clipping at zero (Abdi & Ranaldo's
+    # monthly estimator). Clipping each day first biases spreads upward (amendment 1).
+    df["ar_s2"] = 4 * (c - eta) * (c - eta_next)
     return df, stats
 
 
