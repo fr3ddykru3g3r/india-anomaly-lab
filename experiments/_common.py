@@ -25,15 +25,17 @@ plt.rcParams.update({"text.parse_math": False, "axes.spines.top": False, "axes.s
 
 def prereg_guard() -> None:
     """Refuse to compute real-data anomaly returns unless the pre-registration is frozen
-    (git tag exists) and the pre-registration document is unchanged since the tag."""
+    (a prereg-v1* tag exists) and the document is unchanged since the newest such tag.
+    Amendments are allowed only as new tags (prereg-v1-amendN) with a dated entry."""
     def git(*a):
         return subprocess.run(["git", *a], cwd=ROOT, capture_output=True, text=True)
-    if PREREG_TAG not in git("tag", "-l", PREREG_TAG).stdout.split():
+    tags = git("tag", "-l", f"{PREREG_TAG}*", "--sort=-creatordate").stdout.split()
+    if not tags:
         sys.exit(f"Blocked: tag '{PREREG_TAG}' not found. Freeze docs/PREREGISTRATION.md first "
                  f"(git commit + git tag {PREREG_TAG}); run with --data synthetic to dry-run.")
-    if git("diff", "--quiet", PREREG_TAG, "--", "docs/PREREGISTRATION.md").returncode != 0:
-        sys.exit("Blocked: docs/PREREGISTRATION.md changed since the tag. Record changes as dated amendments "
-                 "and re-tag (prereg-v2), or revert.")
+    if git("diff", "--quiet", tags[0], "--", "docs/PREREGISTRATION.md").returncode != 0:
+        sys.exit(f"Blocked: docs/PREREGISTRATION.md changed since tag {tags[0]}. Record changes as a dated "
+                 "amendment and tag it, or revert.")
 
 
 def args(desc: str) -> argparse.Namespace:
