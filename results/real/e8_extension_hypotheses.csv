@@ -1,0 +1,6 @@
+id,claim,evidence,supported
+X1,S5 beats same-universe EW net of costs (test period),"+5.62 pp/yr, 95% CI [-0.82, +12.03]",False
+X2,Rule chosen on training data (S7) beats EW net (test period),"+6.08 pp/yr, 95% CI [-0.68, +12.35]",False
+X3,S5 has a smaller net max drawdown than EW (full sample),S5 -38.6% vs EW -54.5%,True
+X4,Long-term reversal (decile) beats EW net (test period),"-4.80 pp/yr, 95% CI [-12.11, +4.39]",False
+X5,Cheap vs 5y mean (decile) beats EW net (test period),"-12.45 pp/yr, 95% CI [-19.46, -3.89]",False

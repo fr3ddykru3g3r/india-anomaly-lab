@@ -1,0 +1,13 @@
+test,momentum_top10_gross_cagr,ew_gross_cagr
+same-universe EW (reference),,0.12513688622973707
+baseline,0.2668326599092501,
+cap each monthly return at +200%,0.2668326599092501,
+cap each monthly return at +100%,0.26550175148627364,
+cap each monthly return at +50%,0.24653600551476007,
+drop the 10 best position-months (of 9100),0.2511248721378121,
+drop the 25 best position-months (of 9100),0.23380143768048667,
+drop the 50 best position-months (of 9100),0.21100496196091822,
+drop the 100 best position-months (of 9100),0.17290324019206138,
+floor each monthly return at -50% (worst losses capped),0.27213359899634915,
+floor each monthly return at -90% (worst losses capped),0.26696415226485937,
+"daily returns > +100% in liquid stocks: 3 (BCG, CCCL, SHREEASHTA); held by the momentum portfolio: 1",,

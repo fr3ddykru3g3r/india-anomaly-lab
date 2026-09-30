@@ -1,0 +1,180 @@
+{
+  "verdicts": {
+    "X1": {
+      "claim": "S5 beats same-universe EW net of costs (test period)",
+      "ci": {
+        "diff": 0.056207801221276554,
+        "lo": -0.008238283359404151,
+        "hi": 0.12025743169329497,
+        "p_le_0": 0.0416,
+        "n_months": 105
+      }
+    },
+    "X2": {
+      "claim": "Rule chosen on training data (S7) beats EW net (test period)",
+      "ci": {
+        "diff": 0.060770571800231155,
+        "lo": -0.006780391481710984,
+        "hi": 0.12352503067761346,
+        "p_le_0": 0.0382,
+        "n_months": 105
+      },
+      "chosen": "S7",
+      "train_sharpe": {
+        "S1": 0.7828546628831285,
+        "S2": 1.0782052782942582,
+        "S3": 1.0806872229391031,
+        "S4": 1.4267054650137034,
+        "S5": 1.3141807007326756,
+        "S6": 1.2908638124434713,
+        "S7": 1.4315838937846406,
+        "S8": 1.3901738180448515
+      }
+    },
+    "X3": {
+      "claim": "S5 has a smaller net max drawdown than EW (full sample)",
+      "s5": -0.3858305597667383,
+      "ew": -0.5445124848253066
+    },
+    "X4": {
+      "claim": "Long-term reversal (decile) beats EW net (test period)",
+      "ci": {
+        "diff": -0.047963167856750255,
+        "lo": -0.12111061445672301,
+        "hi": 0.043932998785795874,
+        "p_le_0": 0.8482,
+        "n_months": 105
+      }
+    },
+    "X5": {
+      "claim": "Cheap vs 5y mean (decile) beats EW net (test period)",
+      "ci": {
+        "diff": -0.12452021242482236,
+        "lo": -0.19462211246789657,
+        "hi": -0.03889717293675167,
+        "p_le_0": 0.9966,
+        "n_months": 105
+      }
+    }
+  },
+  "multiple_testing": {
+    "full": {
+      "family_26": {
+        "spa": {
+          "p_value": 0.0,
+          "best": "momentum12_top10",
+          "best_t": 5.699441254063199,
+          "n_variants": 26,
+          "n_months": 182
+        },
+        "reality_check": {
+          "p_value": 0.0,
+          "best": "S2",
+          "best_mean_excess_pm": 0.013416828105761266,
+          "n_variants": 26,
+          "n_months": 182
+        }
+      },
+      "original_12": {
+        "spa": {
+          "p_value": 0.0,
+          "best": "momentum12_top10",
+          "best_t": 5.699441254063199,
+          "n_variants": 12,
+          "n_months": 182
+        },
+        "reality_check": {
+          "p_value": 0.0,
+          "best": "momentum12_top10",
+          "best_mean_excess_pm": 0.010723057770083321,
+          "n_variants": 12,
+          "n_months": 182
+        }
+      },
+      "extension_only_14": {
+        "spa": {
+          "p_value": 0.0,
+          "best": "S2",
+          "best_t": 5.385408575610017,
+          "n_variants": 14,
+          "n_months": 182
+        }
+      }
+    },
+    "test": {
+      "family_26": {
+        "spa": {
+          "p_value": 0.0,
+          "best": "S2",
+          "best_t": 4.396600900144818,
+          "n_variants": 26,
+          "n_months": 105
+        },
+        "reality_check": {
+          "p_value": 0.001,
+          "best": "S2",
+          "best_mean_excess_pm": 0.013371166532741159,
+          "n_variants": 26,
+          "n_months": 105
+        }
+      },
+      "original_12": {
+        "spa": {
+          "p_value": 0.0,
+          "best": "momentum12_top20",
+          "best_t": 4.179227219392839,
+          "n_variants": 12,
+          "n_months": 105
+        },
+        "reality_check": {
+          "p_value": 0.0078,
+          "best": "momentum12_top10",
+          "best_mean_excess_pm": 0.010611673901544839,
+          "n_variants": 12,
+          "n_months": 105
+        }
+      },
+      "extension_only_14": {
+        "spa": {
+          "p_value": 0.0,
+          "best": "S2",
+          "best_t": 4.396600900144818,
+          "n_variants": 14,
+          "n_months": 105
+        }
+      }
+    },
+    "deflated_sharpe_vs_ew_net": {
+      "S5": {
+        "sharpe_annual": 0.7112661353945737,
+        "sr0_annual": 1.1098274077857941,
+        "dsr": 0.06807434899842846,
+        "n_trials": 26,
+        "T": 182
+      },
+      "S7": {
+        "sharpe_annual": 0.7279967351925458,
+        "sr0_annual": 1.1098274077857941,
+        "dsr": 0.07515944416246384,
+        "n_trials": 26,
+        "T": 182
+      },
+      "ltrev_top10": {
+        "sharpe_annual": -0.3437345374626059,
+        "sr0_annual": 1.1098274077857941,
+        "dsr": 8.76228151537732e-09,
+        "n_trials": 26,
+        "T": 182
+      },
+      "cheap5y_top10": {
+        "sharpe_annual": -0.6348908402054294,
+        "sr0_annual": 1.1098274077857941,
+        "dsr": 7.81474581734778e-11,
+        "n_trials": 26,
+        "T": 182
+      }
+    },
+    "n_trials": 26
+  },
+  "chosen": "S7"
+}

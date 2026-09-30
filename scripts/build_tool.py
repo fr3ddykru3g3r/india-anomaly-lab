@@ -76,6 +76,7 @@ footer{margin-top:56px;font-size:13px;color:var(--muted);border-top:1px solid va
 <div class="controls">
 <div><label for="rule">Strategy</label><select id="rule">
 <option value="momentum">Momentum (last year's winners)</option><option value="low_vol">Low volatility (calmest stocks)</option>
+<option value="team_s5">Team rule S5 (trend + setup, 30 stocks)</option><option value="team_s7">Team rule S7 (S5, risk-adjusted ranking)</option><option value="team_s4">Team rule S4 (momentum + low vol + trend)</option><option value="team_s2">Momentum top 30 stocks</option>
 <option value="reversal">Reversal (last month's losers)</option><option value="high_52w">Near 52-week high</option><option value="ew">Equal weight (all 500 stocks)</option></select></div>
 <div><label for="view">Data used</label><select id="view">
 <option value="honest">Honest: stocks as known at the time</option><option value="survivors">Shortcut: only companies that survived</option>
@@ -157,7 +158,7 @@ function update() {
     ["₹" + (s.final ? (s.final * 1e5).toLocaleString("en-IN", {maximumFractionDigits: 0}) : "–"), "₹1 lakh became"],
     [(diff >= 0 ? "+" : "") + (diff * 100).toFixed(1) + " pp", "vs honest paper result"], [pct(e.cagr), "equal weight, honest"]]
     .map(([a, b]) => `<div class="card"><b>${a}</b><span>${b}</span></div>`).join("");
-  const names = {momentum: "Momentum", low_vol: "Low volatility", reversal: "Reversal", high_52w: "52-week high", ew: "Equal weight"};
+  const names = {team_s5: "Team rule S5", team_s7: "Team rule S7", team_s4: "Team rule S4", team_s2: "Momentum top 30", momentum: "Momentum", low_vol: "Low volatility", reversal: "Reversal", high_52w: "52-week high", ew: "Equal weight"};
   const lines = [{path: path(mine), color: "var(--warm)", w: 2.4, label: `${names[rule]}: your settings`, months},
     {path: path(honest), color: "var(--accent)", w: 1.4, label: `${names[rule]}: honest, no frictions`, months},
     {path: path(ew), color: "var(--muted)", w: 1.2, label: "Equal weight of all 500 (honest)", months},

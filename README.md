@@ -6,6 +6,8 @@
 
 **Live:** [project site](https://fr3ddykru3g3r.github.io/india-anomaly-lab/site/) · [interactive backtest reality check](https://fr3ddykru3g3r.github.io/india-anomaly-lab/site/tool.html)
 
+**Full research report:** [PDF](reports/India_Anomalies_Research_Report.pdf) · [Markdown](reports/India_Anomalies_Research_Report.md) (every number generated from the results files)
+
 **Start here:** [one-page summary](PORTFOLIO.md) · [results](reports/RESULTS_real.md) · [project site](docs/site/index.html) · [interactive tool](docs/site/tool.html) · [pre-registration](docs/PREREGISTRATION.md) · [lab notebook](docs/LAB_NOTEBOOK.md) · [IRIS submission kit](iris/FRAMING.md)
 
 ## What is in here
@@ -31,6 +33,9 @@
 | E5 | *(exploratory)* Why was H6 refuted? | `experiments/e5_why_h6_failed.py` |
 | E6 | *(exploratory)* Value on the short 2024-26 sample | `experiments/e6_value_short_sample.py` |
 | E7 | Scenario data for the educational tool | `experiments/e7_tool_data.py` |
+| E8 | Team rule family S0-S8 and price-based value proxies (pre-registered as Amendment 2) | `experiments/e8_team_rules.py` |
+| E9 | Ledger of every model tested, after costs and tax | `experiments/e9_all_models_ledger.py` |
+| E10 | Robustness of momentum to extreme observations and data errors | `experiments/e10_robustness.py` |
 
 E2-E4 refuse to run on real data until `docs/PREREGISTRATION.md` is frozen with the git tag `prereg-v1`, and again if that file changes afterwards. `--data synthetic` dry-runs them on a known market.
 
@@ -50,6 +55,7 @@ E2-E4 refuse to run on real data until `docs/PREREGISTRATION.md` is frozen with 
 
 - Applying today's top-500 list to the past inflates a momentum backtest by **+21.7 percentage points a year** (48.4% vs 26.7%).
 - The simulation's prediction that equal-weight portfolios suffer most from deleted failures (H6) was **refuted**: in India, momentum portfolios held failing companies while they collapsed (E5, exploratory).
+- The team's 30-stock trend-and-setup rule (S5) cuts drawdown (-39% vs -54%) but its return edge over equal weight is not statistically reliable out of sample; plain top-30 momentum did better on return.
 - Momentum beats the same-universe equal-weight portfolio after Indian costs and tax at Rs 10 lakh (21.9% vs 11.4% a year); the edge falls to 12.8% at Rs 100 crore. Reversal is destroyed by costs; low volatility reduces risk, not return.
 
 ## Findings about the data (before any strategy was tested)

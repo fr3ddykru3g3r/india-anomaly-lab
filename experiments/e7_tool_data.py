@@ -14,15 +14,28 @@ import numpy as np
 import pandas as pd
 
 import _common as C
-from indialab import engine, research as rs, study
+from indialab import engine, research as rs, study, teamrules as T
 
+TEAM = {"team_s2": T.SPECS[2], "team_s4": T.SPECS[4], "team_s5": T.SPECS[5], "team_s7": T.SPECS[7]}
 RULES = {"ew": None, "momentum": study.Variant("momentum", 12, 0.1), "low_vol": study.Variant("low_vol", 12, 0.1),
          "reversal": study.Variant("reversal", 0, 0.1), "high_52w": study.Variant("high_52w", 0, 0.1)}
+RULES.update({k: None for k in TEAM})
 CAPS = {"10L": 1e6, "1Cr": 1e7, "10Cr": 1e8, "100Cr": 1e9}
 
 
-def weights(st, v):
+FEAT = {}
+
+
+def weights(st, v, key=None):
+    if key in TEAM:
+        if id(st) not in FEAT:
+            FEAT[id(st)] = T.load_features(C.ROOT / "data" / "processed", st.p)
+        return T.weights(TEAM[key], st.p, st.elig, FEAT[id(st)])
     return rs.target_weights(st.elig) if v is None else rs.target_weights(st.members(v))
+
+
+def gross(st, w, key):
+    return T.gross_with_cash(st, w) if key in TEAM else st.gross(w)
 
 
 def main():
@@ -37,12 +50,13 @@ def main():
 
     put("bench|gross", honest.benchmark())
     for name, v in RULES.items():
-        w = weights(honest, v)
-        put(f"{name}|honest|gross", honest.gross(w))
+        w = weights(honest, v, name)
+        cy = T.CASH_YIELD if name in TEAM else 0.0
+        put(f"{name}|honest|gross", gross(honest, w, name))
         for cap_name, cap in CAPS.items():
-            res, _ = honest.run(w, engine.RunConfig(capital=cap, tax=False), name)
+            res, _ = honest.run(w, engine.RunConfig(capital=cap, tax=False, cash_yield=cy), name)
             put(f"{name}|honest|costs|{cap_name}", res["net"])
-        res, _ = honest.run(w, engine.RunConfig(), name)
+        res, _ = honest.run(w, engine.RunConfig(cash_yield=cy), name)
         put(f"{name}|honest|tax|10L", res["net"])
         print(name, "honest done", flush=True)
 
@@ -54,7 +68,7 @@ def main():
     tod.elig = rs.universe(tod.p, rs.UniverseRule(size=100_000))
     for view, st in [("survivors", surv), ("today", tod)]:
         for name, v in RULES.items():
-            put(f"{name}|{view}|gross", st.gross(weights(st, v)))
+            put(f"{name}|{view}|gross", gross(st, weights(st, v, name), name))
     (C.ROOT / "docs" / "site" / "tool_data.json").write_text(json.dumps(data, separators=(",", ":")))
     print(len(data["series"]), "series")
 
