@@ -25,6 +25,7 @@ class RunConfig:
     tax: bool = True
     costs: bool = True
     spread_floor: float = 0.0         # minimum half-spread (sensitivity, amendment 1)
+    cash_yield: float = 0.0           # annual yield on uninvested cash (amendment 2; untaxed approximation)
 
 
 def trade_date(signal_month: pd.Period) -> pd.Timestamp:
@@ -96,6 +97,7 @@ def simulate(weights: pd.DataFrame, hold: pd.DataFrame, half_spread: pd.DataFram
             book.scale_mv(scale)            # costs raise the effective basis (treated as deductible)
         r = np.nan_to_num(R[i])
         h = target * (1 + r)
+        cash *= (1 + cfg.cash_yield) ** (1 / 12)
         if book is not None:
             for j in np.flatnonzero(target > 0):
                 book.grow(cols[j], 1 + r[j])
