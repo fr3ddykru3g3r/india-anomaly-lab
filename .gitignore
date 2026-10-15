@@ -9,3 +9,4 @@ data/processed/*
 .pytest_cache/
 logs/
 results/variants_log.csv.bak
+artifacts/

@@ -65,7 +65,11 @@ class Study:
         self.p, self.rule, self.label = panel, rule, label
         self.elig = rs.universe(panel, rule)
         first = self.elig.any(axis=1)
-        months = self.elig.index[first.values][:-1]               # last month has no holding return
+        months = self.elig.index[first.values]
+        # Row t holds t+1 open to t+2 open. Observations in the last source
+        # month cannot establish its following open. Exclude that partial
+        # holding interval, rather than annualizing it as a whole month.
+        months = months[months + 1 < panel.close.index.max()]
         if first_hold is not None:
             months = months[months >= first_hold - 1]
         self.months = months
@@ -99,6 +103,11 @@ class Study:
     def gross(self, weights: pd.DataFrame) -> pd.Series:
         w = weights.loc[self.months]
         r = self.hold.loc[self.months].reindex(columns=w.columns)
+        missing = r.isna() & w.gt(0)
+        if missing.any().any():
+            month = missing.any(axis=1).idxmax()
+            names = ', '.join(map(str, missing.columns[missing.loc[month]][:5]))
+            raise ValueError(f'Missing holding return for an invested security in {month}: {names}; audit the data')
         out = (w * r.fillna(0.0)).sum(axis=1)
         out.index = out.index + 1                                 # label by holding month
         return out

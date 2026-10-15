@@ -65,7 +65,7 @@ class Panel:
         s = self.sum_r.fillna(0).rolling(months, min_periods=months // 2).sum()
         s2 = self.sum_r2.fillna(0).rolling(months, min_periods=months // 2).sum()
         var = (s2 - s ** 2 / n) / (n - 1)
-        return np.sqrt(var.where(n > 40))
+        return np.sqrt(var.where(n > 40).clip(lower=0))
 
     def half_spread(self, months: int = 3) -> pd.DataFrame:
         return np.sqrt(self.ar_s2.rolling(months, min_periods=1).mean().clip(lower=0)) / 2

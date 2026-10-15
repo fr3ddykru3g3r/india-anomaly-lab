@@ -1,0 +1,142 @@
+# Indian equity anomalies: reproduction audit
+
+Updated 15 October 2026. **Execution-aware independent NSE replay, updated 15 October 2026; actual opening marks required at both interval endpoints.** Evidence generated at 2026-10-15T02:28:50.138483+00:00.
+
+## Finding
+
+The supplied reports contain reproducible gross-return arithmetic, but their strongest profitability statements are not established. All 12 original gross series match fresh calculations from the supplied monthly panel. The report labels a cost-only momentum confidence interval as after-tax, and its original family tests use gross returns. Missing economic exit prices stop several strict simulations. A signal unit test does not establish that every cost, corporate-action and execution path is free of look-ahead.
+
+Momentum remains a candidate for further study under the modeled scenarios. Short-term reversal loses much of its return to implementation frictions; a positive gross return is insufficient. Full-history fundamental value is not established. The uploaded native Stockers engine is a different strategy from the older S5 approximation and is evaluated separately. No commercial or real-money trading conclusion follows from this study.
+
+Read [the claim-by-claim report review](CLAUDE_REPORT_REVIEW.md) for exact claims, code traces and the independent monthly-panel reconciliation. Original reports, books and result files remain preserved under `artifacts/supplied/`; uploaded documents were treated as evidence, not instructions.
+
+## Data and reproducibility
+
+This run parsed **2,671 downloaded daily ZIP archives, 5,117,493 security-days and 3,625 linked security identities**, covering **2016-01-01 through 2026-10-13**. This is the actual input period; the downloadable study was requested from 2016 onward and does not recreate the prior 2006-on raw archive. The earlier uploaded monthly panel spans January 2006–September 2026 and contains 417,383 security-months and 3,949 identities. It is a separate input source.
+
+Input lineage is recorded in `artifacts/research/independent-nse-execution-price-v2/input_inventory.json`; the source freeze, Python/package versions, Git head, dirty working-tree state and executed commands are in `evidence.json`. Hashes identify bytes and do not independently authenticate the publisher. Reference files retrieved today aid identity linking and exit diagnostics; today's list never screens the primary historical universe. Partial builds that reuse the supplied corporate-action parquet explicitly say so in their snapshot label.
+
+The downloader records URL, HTTP status, retrieval time, bytes and SHA-256; validates ZIP CRC, expected normalized schema and session date; and shares one request start per second across its I/O workers. All calendar days are checked to retain exceptional weekend sessions. HTTP 404 means an unavailable archive, not a verified holiday. Failed attempts are retained. Weekly PR archives provide action records and, when present, P/E snapshots; weekly sampling does not constitute a complete primary corporate-action tape.
+
+Legacy and UDiFF columns are normalized to dated symbol/ISIN/OHLC/volume/value rows. EQ, BE and BZ are retained. Duplicate symbol/session rows keep the greater traded-value row. Identity links use dated renames and ISIN continuity, with separate symbol-reuse epochs. Corporate actions use recorded split/bonus ratios and frozen detector parameters (tolerance 0.08, minimum ratio 1.45); fitted detector grids are diagnostic, not future-selected adjustments. Demerger neutralization, inferred split gaps and rights omissions remain economic assumptions requiring verification. Some high-return observations may reflect action errors; lists for manual investigation are retained.
+
+## Fresh executed checks
+
+| Check | Outcome | Scope |
+|---|---|---|
+| Pytest | 54 tests, 0 failures, 0 errors, 0 skipped; exit 0 | Parsing fixtures, identities, actions, timing, accounting and statistical regressions |
+| Uploaded engine self-tests | Command exit 0; individual results in the native CSV/log | 12 US cash-flow/mandate toy checks, not NSE anomaly significance |
+| Recorded family | 30 planned variants, plus controls | Original 12, S1–S8, slot variants, price proxies, native EMA100/200/300 and earnings yield availability |
+| Experiment summaries | 8,344 rows | Full and clipped periods, implementation layers and two data views |
+| Model failures | 301 failed records; 0 unavailable records | Published in failures.json; never relabeled successful |
+| Global replay error | none | A strict model failure still makes the overall runner exit nonzero |
+
+The unchanged original Stockers upload is SHA-256 `b037f944b3bff5db60d01552582c80ce65a4234b1e7f1bb21775418ab5f00c9a`. Its original methods aggregate NSE daily bars, generate signals and compute open-to-open positions. Direct divergence entries retain the original additional month lag. The adaptation uses prior completed sessions for execution warmup, omits zero-volume bars, applies month-end India eligibility, equal weights active names, rupee frictions and Indian tax scenarios. The US manually chosen annual lists, US fees/factors, leverage and WGY obligations are not imported as Indian evidence.
+
+Confirmed simulator corrections preserve cash-only months and intended cash under rebalance bands; reject missing invested holding returns; include initial capital in drawdown; date spread products only after both sessions complete; freeze corporate-action detector parameters; report participation; and prevent literal-zero finite-bootstrap p-values. Paper-gross paths also fail on missing invested prices. The uploaded engine file is byte-identical. These corrections change the interpretation of previous runs; historical outputs are preserved for comparison.
+
+## Conditional results and failure visibility
+
+The table below is **an explicit zero-recovery audit sensitivity**, not a verified fill policy. It assumes existing unresolved positions are written off and rejects target fills when their future holding return is unavailable. That latter rule uses hindsight; it cannot establish a causal execution strategy. Last-mark exit is the optimistic alternative. Strict layers stop on missing holding returns and publish the exact security/month. Merger shares, cash consideration, buyout payments and temporary suspension outcomes must be reconstructed before interpreting these assumptions as realizable performance.
+
+Initial capital: INR 10 lakh. Returns include modeled trading charges and annual capital-gains tax; **terminal liquidation tax is additional** and is stored separately in summary.csv. Cash yield is zero in this new runner. Gross fully rebalances, while implemented layers use a 25% relative band, so gross/net differences include policy effects as well as charges.
+
+| Portfolio | Actual holding dates | Conditional CAGR | Maximum drawdown | Months over 10% ADV |
+|---|---|---:|---:|---:|
+| Same-universe EW | 2017-02–2026-09 (116 months) | 12.21% | -55.65% | 0 |
+| Momentum 12–1 | 2017-02–2026-09 (116 months) | 24.68% | -46.96% | 0 |
+| Low volatility | 2017-02–2026-09 (116 months) | 10.63% | -18.42% | 0 |
+| One-month reversal | 2017-02–2026-09 (116 months) | 2.18% | -68.30% | 0 |
+| Earlier S5 approximation | 2017-02–2026-09 (116 months) | 16.06% | -39.79% | 0 |
+| Native Stockers EMA200 adaptation | 2017-02–2026-09 (116 months) | 12.76% | -48.74% | 0 |
+
+![Conditional return paths](../figures/audit/conditional_growth.png)
+
+![Implementation layers](../figures/audit/conditional_layers.png)
+
+Individual rule histories can differ when long-horizon features first become available. Read actual first/last dates. A failed benchmark blocks its matched inference even when a particular strategy completes. Failed models are shown directly in the educational tool, alongside unavailable value and low-power windows.
+
+## Costs, taxes and liquidity
+
+Trading costs include dated STT/stamp schedules, approximate exchange/SEBI/GST/DP fees, observed-price spread proxies and square-root impact. Several historical fee entries remain modern constants or marked VERIFY. The runner evaluates cost-only, annual-tax, higher-cost stress and INR 1/10/100 crore capital scenarios. Maximum order divided by trailing daily traded value is published. Above 10% is a diagnostic breach; no participation constraint, circuit, auction, partial fill or order-book queue is simulated. A smooth capital curve does not establish capacity.
+
+The resident-individual tax model tracks FIFO lots, dated regimes, exemptions, loss set-off/carry-forward, grandfathering and cess. It approximates long-term eligibility with 365 days, grandfather value with monthly marks, mixed-rate loss allocation and pro-rata withdrawals without additional realized gains. Surcharge and personal tax circumstances are omitted. Dividend-income taxation is omitted from the separate recorded-dividend sensitivity. Missing spread/volatility proxies default to zero and missing ADV gives zero modeled impact but a capacity flag; such scenarios need source review. Terminal liquidation tax is shown separately, and terminal trading fees are not added. These are research tax scenarios, not exact liabilities.
+
+## Bias, periods and statistical evidence
+
+The primary data view retains all available histories and never selects on future exit labels. The separately labeled deletion view removes eventual exits deliberately; its return changes quantify that shortcut, not every survivorship error. Missing firms/files, incorrect identity links, restated data, terminal recoveries and action valuations remain unresolved sources of bias.
+
+Signals observed through close t earn first-open t+1 to first-open t+2 returns. Only complete holding intervals are included; the last partially observed interval is excluded. A 2016-only starting archive requires a feature warmup, so its primary holding sample begins later than January 2016. Future-price perturbation and warmup regressions validate specific paths, not a universal absence of look-ahead.
+
+Full, through-2017, 2018-on and named historical episodes are reported with actual dates and observation counts. Episodes outside the archive are unrun; incomplete episodes are clipped. The 2018 split has already been examined and is not a fresh untouched holdout. All modifications in this task are exploratory replications, not newly preregistered evidence. The original preregistration document and tags are preserved and checked rather than rewritten to pass a guard.
+
+Stationary-bootstrap CAGR-difference intervals jointly resample strategy/control months with seed 7, mean block length 12 and 1,999 resamples. Inferential windows need at least 24 months. White and Hansen SPA family tests are performed separately on gross, cost and tax layers over a common available price-family history; missing family members block inference. Degenerate excess series are listed. Earnings yield has a separate available-data EW control and a limited-history comparison. Finite p-values use `(1 + exceedances)/(B + 1)`. Deflated Sharpe counts at least the recorded family; historical unpublished searches remain unknown. Marginal confidence intervals and bootstrap sign proportions are not family-adjusted null probabilities.
+
+The following broad price-family tests use the historical 2018-on window clipped to the family's common feature history. A p-value above 0.05 does not reject the tested family null at 5%, regardless of a large descriptive CAGR. The original 12-rule family is also reported separately in original_grid_statistics.json on its longer matched history; neither family accounts for unknown unpublished searches.
+
+| Layer | Months | Evaluated price variants | SPA p | White p |
+|---|---:|---:|---:|---:|
+| assume_last_mark:gross | 68 | 29 | 0.0065 | 0.0015 |
+| assume_last_mark:costs | 68 | 29 | 0.0140 | 0.0040 |
+| assume_last_mark:costs_tax | 68 | 29 | 0.0620 | 0.0120 |
+| assume_total_loss:gross | 68 | 29 | 0.0055 | 0.0015 |
+| assume_total_loss:costs | 68 | 29 | 0.0135 | 0.0020 |
+| assume_total_loss:costs_tax | 68 | 29 | 0.0540 | 0.0095 |
+
+See statistics.json for the actual evaluated windows, omissions and tests. Statistical rejection is conditional on input quality and implementation assumptions. This harness does not establish factor-neutral alpha, causal identification or reliable future returns.
+
+## Relationship to published anomalies
+
+The price signals adapt established momentum (Jegadeesh and Titman, 1993), reversal (De Bondt and Thaler, 1985) and low-risk research to an NSE cash-equity universe. They are not exact recreations of those papers' original markets, weighting, financing or short-sale implementation. Fundamental value as in Fama and French (1992) requires historical publication-dated fundamentals; a price/five-year-mean proxy cannot replace them. Short-sample NSE P/E is disclosed as exploratory. A precise published Indian-paper reproduction requires its exact sample and protocol.
+
+Family testing follows the White (2000) Reality Check and Hansen (2005) SPA approach; search-sensitive Sharpe interpretation follows Bailey and López de Prado (2014). The code and output reveal this project's choices; naming a method is not proof of exact numerical equivalence to an external implementation.
+
+## Educational delivery and next research
+
+`docs/site/audit.html` is a self-contained educational explorer of every model's dates, costs, taxes, capital, losses and failures, with a downloadable JSON ledger. It contains no broker integration or order execution. `docs/REPLICATION_PROTOCOL.md` provides commands and assumptions; `reports/CLAUDE_REPORT_REVIEW.md` reviews the earlier claims; `artifacts/research/independent-nse-execution-price-v2/` preserves machine-readable evidence. Original site pages carry a historical-result status notice.
+
+Before a deployable investment conclusion, independently value all reorganizations and missing exits; verify the trading calendar and complete action tape; acquire publication-dated fundamentals and matched total-return benchmarks; calibrate and constrain execution; review tax accounting; and evaluate a prospectively locked future period. An educational evidence product is a reasonable prototype. Commercial viability, data rights and investment-service obligations have not been established. There is no real-money trading or AI-alpha claim.
+
+## Execution and tax checks added to the final run
+
+The headline run is `artifacts/research/independent-nse-execution-price-v2/`; the recorded-dividend sensitivity is `independent-nse-execution-dividends-v2/`. Earlier snapshots are preserved for audit history and do not supersede these results.
+
+An investable holding interval now requires a positive observed opening quote with traded volume on the first archived market session at **both** endpoints. A later first trade in a month cannot supply the market's missing opening. The runner masks incomplete endpoint returns and passes actual opening availability to the portfolio engine. A fully exited position needs its current opening mark, even though it does not need the coming month's return. Missing entries or liquidations fail in strict mode. This prevents a stale carried mark from silently becoming an executable sale.
+
+In the explicit sensitivities, unavailable target fills are rejected; existing unresolved exposures receive assumed last-mark proceeds or zero recovery. The future-interval checks in these sensitivities use hindsight and do not define a causal trading policy. No new entry or actual merger consideration is invented. Strict failure is a legitimate research result, not a zero-return observation. The April tax withdrawal also uses wealth *after* an assumed loss so that the full modeled prior-year tax bill is deducted. A hand-computed regression verifies INR 78,000 tax deducted from INR 750,000 remaining wealth.
+
+Portfolio weights remain continuous: fractional shares are assumed. Integer-share requirements, auction access, trading circuits, queues and partial fills are not modeled. Some INR 10 lakh equal-weight allocations cannot purchase even one high-priced share. Thus baseline capacity diagnostics do not establish a fully executable retail portfolio. The native EMA spans are periods of the original monthly aggregation; long spans depend on initialization and the limited pre-2016 history. They are not silently replaced with daily EMA rules.
+
+## Final verification and uncertainty
+
+Both final runs pass **54 software tests and 12/12 uploaded native toy checks**, with zero software failures/errors/skips, no global parsing error and unchanged source hashes during execution. Each publishes **8,344 summary rows and 301 failed model/scenario records**. All **1,043 saved monthly paths** in each pass finite-return, nonnegative-charge and wealth-recursion checks. The overall command exit is deliberately 1 because failed scenarios remain. Under strict all-history execution, no gross rule path completes; inspect the missing merger/suspension marks rather than citing only successful assumed-recovery scenarios.
+
+The broad 29-price-rule family shares 68 months. Its assumed-zero-recovery annual-tax SPA p-value is **0.0540** for price returns and **0.0555** with recorded dividends. These are near the nominal 5% boundary, with 1,999 resamples; do not treat a threshold crossing or noncrossing as definitive proof. Unknown earlier searches, seen holdouts and unverified recovery assumptions remain material.
+
+The original 12-rule family has a different, longer window: January 2018–September 2026, 105 months. Its conditional annual-tax price test has SPA p=0.0025 and White p=0.0205. This supports further momentum research under those assumptions; it does not erase the broader-family result or establish realizable alpha. The marginal momentum minus EW annual-tax CAGR difference is 10.70 percentage points/year, with block-12 interval [3.33, 20.31]; its interval stays positive across blocks 3, 6, 12 and 24. The native Stockers EMA200 adaptation's excess is only 0.26 points/year, interval [-3.46, 3.32], and all four intervals include zero.
+
+At initial INR 100 crore, the momentum cost-only scenario shows 18.52% CAGR under the impact formula but breaches 10% of the daily-value liquidity proxy in **116 of 116 months**, with maximum order/proxy 7.07. This is not demonstrated executable capacity.
+
+## Fundamental value: fourteen observed holding months
+
+The downloaded weekly PR archives contain 59 P/E files, observed 7 February 2024–19 March 2025. Only 14 signal months contain fundamentals, yielding holding dates **March 2024–April 2025**. The corrected value and its available-data EW control stop at that endpoint. Their conditional after-cost/annual-tax price CAGRs are **-6.20%** and **2.31%**, respectively. Fourteen months fails the 24-month inference requirement; full-history value remains untested.
+
+The supplied value gross CAGR −0.3908359% reproduces when the older design counts 31 calendar months, including **17 cash-only months after P/E data ends**. On the 14 observed signal months, the same supplied-panel gross result is −0.8633693%. The calendar return of a stopped-feed cash policy is calculable, but it is not 31 months of fundamental-value observations. The old implemented engine also skipped cash-only months, permitting gross and net denominators to differ. See `value_cash_padding_diagnostic.json` and the claim review.
+
+## Source and earlier-history checks
+
+All 2,671 daily ZIPs and 563 weekly PR ZIPs are preserved. All 3,939 calendar-date candidates have a recorded 200 or 404 in the final live download manifest; four transient weekend failures resolved as 404 on retry and the downloader exited zero. A 404 remains an unavailable archive, not authenticated evidence of a holiday. The analysis snapshot's manifests are immutable; the later retry log is separate.
+
+There are **13,950 common supplied/downloaded corporate-action symbol/ex-date keys** in the 2016–October 2026 interval. Every common factor and dividend amount agrees at 1e-8; the download adds 15 in-period records. All 5,117,493 normalized traded rows have implied value/volume within the daily high-low range at 0.1% tolerance, with median value/(volume×close) about 1.0015. This corroborates INR units and parsing, not tick-level execution. E1 still flags 1,184 unexplained overnight gaps above 40% and 354 adjusted daily returns above 50% in absolute magnitude. Frozen-detector precision is about 81.6% and recall 89.1% on its liquid record validation. These require primary-record investigation.
+
+Nine representative securities have exported original Stockers monthly bars, signals, positions and returns under `native_examples/`. On 272 active observed months, native exposed open-to-open returns agree with the India underlying-return calculation within 1e-8. This limited consistency check is not proof that missing-price exits are valid or that all 7,108 source lines are tested. The last partial October bar is exported for transparency but excluded from primary performance.
+
+All earlier uploaded monthly history was also tested separately, February 2007–August 2026 (235 months), using the current engine and conservative spread lag. These processed-only runs reach the 2008 and 2013 episodes, but lack independently rebuilt pre-2016 daily opening evidence. Under zero recovery, annual-tax CAGRs are about 16.38% momentum, 9.26% EW and −9.49% reversal. Higher-cost stress exhausts the reversal decile in September 2020 and quintile in March 2021; failures are retained. See `supplied-monthly-extended-v2*`. They are not equivalent to the execution-aware daily-data result.
+
+Every original E0–E10 entry point was attempted against the independent dataset in an isolated output tree. E0, E1, E5 and E10 execute; E2, E3, E4, E6, E7, E8 and E9 fail under strict missing-price handling. The final legacy E6 fails on TATAMTRDVR's missing holding mark, not on absence of P/E files. Logs and actual exits are retained; no old result was copied in to fill a failed dependency.
+
+NIFTYBEES provides matched benchmark context over 116 months, with 11.86% gross investor CAGR and -28.70% maximum drawdown. Fund expenses are reflected in its traded price; investor entry/exit charges and tax are not deducted. This is not a net-versus-net alpha test. Same-universe EW remains the family control, and factor-neutral alpha is untested.
+
+## Recorded-dividend sensitivity
+
+The separate recorded-dividend run uses the same signals and execution checks. Under zero recovery and annual tax, CAGRs are momentum 25.94%, EW 13.47%, low volatility 12.14%, reversal 2.94%, S5 17.34%, and native Stockers EMA200 13.80%. Dividend-income tax is omitted, and recorded payouts are not a complete primary corporate-action tape. The separate return files, statistics and failures are retained rather than merged into the price-only headline.

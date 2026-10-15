@@ -154,14 +154,23 @@ def daily_panel(df: pd.DataFrame, symbol_changes: pd.DataFrame | None = None,
     rec["use"] = usable(rec) if len(rec) else pd.Series(dtype=bool)
     events = rec
     if detect_before is not None:
-        params = {}
+        # Freeze the prior study's disclosed parameters. Fitting on a fraction
+        # of the final archive changes earlier adjustments when future data arrive.
+        params = {"tol": 0.08, "min_ratio": 1.45}
         post = df["date"] >= detect_before
         if len(rec) and post.any():
             rec_idx = set(rec.index[rec["use"]])
             split_date = detect_before + (df["date"].max() - detect_before) * 0.3
             tuned = CA.tune_detector(df.loc[post], rec_idx, split_date)
-            params = tuned["params"]
             stats["detector"] = {k: v for k, v in tuned.items() if k != "grid"}
+            stats["detector"]["fitted_candidate_params"] = tuned["params"]
+            stats["detector"]["params"] = params
+            stats["detector"]["policy"] = "frozen parameters; fitted grid is diagnostic only"
+            liquid = df["value"] >= 1e7
+            train = df[post & liquid & (df["date"] < split_date)]
+            test = df[post & liquid & (df["date"] >= split_date)]
+            stats["detector"]["tuning"] = CA.score_detector(train, rec_idx & set(train.index), **params)
+            stats["detector"]["validation"] = CA.score_detector(test, rec_idx & set(test.index), **params)
             stats["detector_grid"] = tuned["grid"]
         det = CA.detect(df.loc[~post], **params).set_index("idx")
         det["source"] = "detector"
@@ -222,7 +231,9 @@ def daily_panel(df: pd.DataFrame, symbol_changes: pd.DataFrame | None = None,
     eta_next = eta.groupby(df["sec"]).shift(-1)
     # Two-day products are averaged over the month BEFORE clipping at zero (Abdi & Ranaldo's
     # monthly estimator). Clipping each day first biases spreads upward (amendment 1).
-    df["ar_s2"] = 4 * (c - eta) * (c - eta_next)
+    # A pair ending tomorrow is not available today. Date each product when both
+    # sessions have finished, before it enters a signal-month liquidity estimate.
+    df["ar_s2"] = (4 * (c - eta) * (c - eta_next)).groupby(df["sec"]).shift(1)
     return df, stats
 
 

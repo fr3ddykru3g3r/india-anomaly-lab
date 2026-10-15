@@ -40,11 +40,14 @@ def bootstrap_cagr_diff(a: pd.Series, b: pd.Series, n_boot: int = 5000, mean_blo
     """95% interval for CAGR(a) - CAGR(b), resampling months jointly."""
     df = pd.concat([a, b], axis=1).dropna()
     x = df.to_numpy(float)
+    if len(x) < 2:
+        raise ValueError("At least two aligned months are required")
     idx = stationary_bootstrap_idx(len(x), n_boot, mean_block, np.random.default_rng(seed))
     d = cagr(x[idx, 0]) - cagr(x[idx, 1])
     point = float(cagr(x[:, 0]) - cagr(x[:, 1]))
     return {"diff": point, "lo": float(np.quantile(d, 0.025)), "hi": float(np.quantile(d, 0.975)),
-            "p_le_0": float((d <= 0).mean()), "n_months": len(x)}
+            "p_le_0": float((d <= 0).mean()), "n_months": len(x),
+            "n_boot": n_boot, "mean_block": mean_block, "seed": seed}
 
 
 def reality_check(variants: pd.DataFrame, benchmark: pd.Series, n_boot: int = 5000, mean_block: float = 12,
@@ -59,7 +62,7 @@ def reality_check(variants: pd.DataFrame, benchmark: pd.Series, n_boot: int = 50
     idx = stationary_bootstrap_idx(n, n_boot, mean_block, np.random.default_rng(seed))
     boot = (d[idx].mean(axis=1) - mean) * np.sqrt(n)
     vb = boot.max(axis=1)
-    return {"p_value": float((vb >= v).mean()), "best": str(df.columns[int(mean.argmax())]),
+    return {"p_value": float((1 + (vb >= v).sum()) / (n_boot + 1)), "best": str(df.columns[int(mean.argmax())]),
             "best_mean_excess_pm": float(mean.max()), "n_variants": d.shape[1], "n_months": n}
 
 
@@ -106,6 +109,6 @@ def spa(variants: pd.DataFrame, benchmark: pd.Series, n_boot: int = 5000, mean_b
     keep = t >= -np.sqrt(2 * np.log(np.log(n)))
     mu_c = np.where(keep, mean, 0.0)
     tb = np.sqrt(n) * (bm - mu_c) / omega
-    p = float((np.maximum(np.nanmax(tb, axis=1), 0.0) >= stat).mean())
+    p = float((1 + (np.maximum(np.nanmax(tb, axis=1), 0.0) >= stat).sum()) / (n_boot + 1))
     return {"p_value": p, "best": str(df.columns[int(np.nanargmax(t))]), "best_t": float(np.nanmax(t)),
             "n_variants": d.shape[1], "n_months": n}

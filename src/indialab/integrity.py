@@ -18,7 +18,7 @@ def perf(r: pd.Series, periods: int = 12) -> dict:
     w = (1 + r).cumprod()
     vol = r.std() * np.sqrt(periods)
     cagr = w.iloc[-1] ** (periods / len(r)) - 1
-    dd = (w / w.cummax() - 1).min()
+    dd = (w / w.cummax().clip(lower=1.0) - 1).min()
     return {"n": len(r), "cagr": cagr, "vol": vol, "sharpe": r.mean() * periods / vol if vol else np.nan,
             "max_dd": dd, "calmar": cagr / abs(dd) if dd < 0 else np.nan}
 

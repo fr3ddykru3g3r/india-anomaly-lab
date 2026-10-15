@@ -4,3 +4,4 @@ scipy>=1.13
 matplotlib>=3.9
 pytest>=8
 pyarrow>=15
+markdown>=3.7

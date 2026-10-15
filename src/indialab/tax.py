@@ -114,6 +114,14 @@ class TaxBook:
         mv = sum(l[2] for l in self.lots.get(sec, ()))
         self.sell(sec, date, mv)
 
+    def assumed_writeoff(self, sec: str, date: pd.Timestamp) -> None:
+        """Research sensitivity: assumed zero-recovery disposal, not a tax-law claim."""
+        reg, fy = regime(date), fy_of(date)
+        for acq, cost, mv, fmv in self.lots.pop(sec, ()):
+            long_term = (date - acq).days >= reg["holding_days_for_long_term"]
+            category = "lt" if long_term else "st"
+            self.gains[fy][category].append((-cost, reg["ltcg" if long_term else "stcg"]))
+
     def market_value(self, sec: str) -> float:
         return float(sum(l[2] for l in self.lots.get(sec, ())))
 

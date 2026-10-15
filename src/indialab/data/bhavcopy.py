@@ -3,9 +3,9 @@
 Output columns (one row per security per session):
     date, symbol, series, isin, open, high, low, close, prevclose, volume, value
 
-`prevclose` is NSE's base price for the day. On a corporate-action ex-date NSE
-adjusts it (e.g. halves it for a 2:1 split), so close / prevclose - 1 is the
-day's return free of split/bonus jumps. That is the key fact the panel relies on.
+`prevclose` is not reliably split-adjusted on NSE corporate-action ex-dates.
+The panel uses dated corporate-action records and disclosed detector fallbacks
+to construct comparable prices; close / prevclose - 1 alone is insufficient.
 """
 from __future__ import annotations
 

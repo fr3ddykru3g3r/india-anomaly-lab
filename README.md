@@ -1,5 +1,23 @@
 # Do equity anomalies survive reality in India?
 
+**Reproduction audit (14 October 2026):** the earlier gross series reconcile to
+the supplied monthly panel, but an after-tax inference label and gross-only
+family tests overstate what was tested. Strict missing-price handling exposes
+failed backtests. Read the [claim review](reports/CLAUDE_REPORT_REVIEW.md),
+[new reproduction report](reports/REPRODUCTION_AUDIT.md) and
+[educational evidence explorer](docs/site/audit.html). Original results below
+remain historical artifacts; the audit documents their limitations.
+
+**Final project report:** [PDF](reports/FINAL_PROJECT_REPORT.pdf) ·
+[Markdown](reports/FINAL_PROJECT_REPORT.md) · [HTML](reports/FINAL_PROJECT_REPORT.html).
+
+For the audited workflow, install `requirements-research.lock.txt`, run
+`scripts/run_research_audit.py --mode synthetic`, or download with
+`scripts/download_2016_archive.py` and run the real audit. The
+[replication protocol](docs/REPLICATION_PROTOCOL.md) explains frozen inputs,
+nonzero exits, return layers and research limitations. The default download
+window is 1 January 2016–13 October 2026.
+
 **Question.** Do well-known momentum, low-volatility and short-term-reversal effects in Indian equities still pay once the backtest stops cheating? That means no survivorship bias, no look-ahead, dated Indian taxes and trading costs, realistic liquidity, and honest accounting for how many strategies were tried.
 
 **Why it matters.** Most shared backtests quietly use data that did not exist at the time: today's index members, companies that later went bust silently removed, prices adjusted with later information. This project measures how much of a strategy's apparent return is real, how much is data artefact, and how much disappears after costs and tax.

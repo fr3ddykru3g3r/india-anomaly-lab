@@ -89,7 +89,7 @@ def abdi_ranaldo_half_spread(high: pd.Series, low: pd.Series, close: pd.Series) 
     eta = (np.log(high) + np.log(low)) / 2
     c = np.log(close)
     s2 = 4 * (c - eta) * (c - eta.shift(-1))
-    return np.sqrt(s2.rolling(21, min_periods=5).mean().clip(lower=0)) / 2
+    return np.sqrt(s2.shift(1).rolling(21, min_periods=5).mean().clip(lower=0)) / 2
 
 
 def statutory_rates(date) -> dict:

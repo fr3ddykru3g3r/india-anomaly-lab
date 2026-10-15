@@ -141,7 +141,7 @@ def cagr(r: pd.Series) -> float:
 
 def max_dd(r: pd.Series) -> float:
     w = (1 + r).cumprod()
-    return float((w / w.cummax() - 1).min())
+    return float((w / w.cummax().clip(lower=1.0) - 1).min())
 
 
 def to_monthly_panel(R: pd.DataFrame, info: pd.DataFrame, start: str = "2006-01", seed: int = 0,

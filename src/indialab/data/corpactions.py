@@ -136,8 +136,9 @@ def attach(daily: pd.DataFrame, records: pd.DataFrame, max_days: int = 5) -> pd.
     right = daily[["symbol", "date"]].reset_index().rename(columns={"index": "idx"})
     right["symbol"] = right["symbol"].astype(str)
     left["symbol"] = left["symbol"].astype(str)
-    # nearest session: ex-dates fall on holidays (-> next session) and are occasionally a day late
-    m = pd.merge_asof(left, right.sort_values("date"), on="date", by="symbol", direction="nearest",
+    # A holiday or suspension cannot move an action into an earlier session.
+    # Incorrect recorded ex-dates require source verification, not backward matching.
+    m = pd.merge_asof(left, right.sort_values("date"), on="date", by="symbol", direction="forward",
                       tolerance=pd.Timedelta(days=max_days))
     m = m.dropna(subset=["idx"])
     m["idx"] = m["idx"].astype(int)
