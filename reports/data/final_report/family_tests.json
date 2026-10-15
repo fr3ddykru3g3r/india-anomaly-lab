@@ -1,0 +1,52 @@
+{
+  "original_12": {
+    "layer": "assume_total_loss:costs_tax",
+    "period": "2018_on",
+    "family": "original_preregistered_12",
+    "status": "completed_conditional",
+    "months": 105,
+    "first": "2018-01",
+    "last": "2026-09",
+    "note": "Historical family and seen data; sensitivity assumptions are not causal fills.",
+    "spa": {
+      "p_value": 0.0025,
+      "best": "momentum12_top10",
+      "best_t": 3.2328861811925265,
+      "n_variants": 12,
+      "n_months": 105
+    },
+    "white": {
+      "p_value": 0.0205,
+      "best": "momentum12_top10",
+      "best_mean_excess_pm": 0.008659909381863456,
+      "n_variants": 12,
+      "n_months": 105
+    }
+  },
+  "broader_29": {
+    "layer": "assume_total_loss:costs_tax",
+    "period": "full",
+    "months": 68,
+    "excluded_zero_variance": [],
+    "n_boot": 1999,
+    "seed": 7,
+    "mean_block": 12,
+    "family_common_first_month": "2021-02",
+    "status": "completed_exploratory",
+    "historical_search_count": "unknown",
+    "white": {
+      "p_value": 0.0095,
+      "best": "S3",
+      "best_mean_excess_pm": 0.011793414218358207,
+      "n_variants": 29,
+      "n_months": 68
+    },
+    "spa": {
+      "p_value": 0.054,
+      "best": "momentum12_top10",
+      "best_t": 2.595167824679009,
+      "n_variants": 29,
+      "n_months": 68
+    }
+  }
+}

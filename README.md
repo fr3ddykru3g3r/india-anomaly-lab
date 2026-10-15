@@ -11,6 +11,13 @@ remain historical artifacts; the audit documents their limitations.
 **Final project report:** [PDF](reports/FINAL_PROJECT_REPORT.pdf) ·
 [Markdown](reports/FINAL_PROJECT_REPORT.md) · [HTML](reports/FINAL_PROJECT_REPORT.html).
 
+The curated report explains the findings with portfolio-growth, drawdown,
+cost-and-tax, and statistical-uncertainty charts. Simple momentum led conditional
+growth; low volatility had the smallest observed drawdown; reversal was heavily
+eroded by costs. Unresolved execution prices prevent a claim of proven tradable
+performance. The [published chart data and provenance](reports/data/final_report/README.md)
+let readers regenerate the report without the full raw archive.
+
 For the audited workflow, install `requirements-research.lock.txt`, run
 `scripts/run_research_audit.py --mode synthetic`, or download with
 `scripts/download_2016_archive.py` and run the real audit. The

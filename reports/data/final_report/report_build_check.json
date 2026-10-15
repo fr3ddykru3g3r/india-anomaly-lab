@@ -1,0 +1,36 @@
+{
+  "source": "Published frozen evidence snapshot; no numerical rerun",
+  "figures": [
+    "final_strategy_comparison",
+    "final_drawdowns",
+    "final_cost_layers",
+    "final_excess_uncertainty"
+  ],
+  "monthly_paths_verified": 10,
+  "checks": [
+    "CAGR matches monthly wealth within 1e-10",
+    "Maximum drawdown matches monthly wealth within 1e-10",
+    "Wealth recursion matches saved net returns",
+    "Snapshot SHA-256 matches provenance"
+  ],
+  "source_sha256": {
+    "artifacts/research/independent-nse-execution-price-v2/summary.csv": "681166a9a13d2e3b2d0fd9c8205aa71f3eab7e7b30bf056c31c2c8b27d7dd2d3",
+    "artifacts/research/independent-nse-execution-price-v2/returns/all_histories-assume_total_loss:costs_tax-S2.csv": "e1bc7e7ff8584a67815df2049823c6a8fbb451ad309c8408dccc8853dc58a8ed",
+    "artifacts/research/independent-nse-execution-price-v2/returns/all_histories-assume_total_loss:costs_tax-S3.csv": "3497100f3c7b238a43e6ba2bbde135049b58e0837a049f49b911394e564036c2",
+    "artifacts/research/independent-nse-execution-price-v2/returns/all_histories-assume_total_loss:costs_tax-momentum12_top10.csv": "68966b388d5497dfc8d969e6f29e20f3b0afa54ca7a583a731f26b8463148f05",
+    "artifacts/research/independent-nse-execution-price-v2/returns/all_histories-assume_total_loss:costs_tax-S5.csv": "ff2ce91f64212777c0504f1f8cf0655b006d9c1f45ac6b6484eed6ef6e478b34",
+    "artifacts/research/independent-nse-execution-price-v2/returns/all_histories-assume_total_loss:costs_tax-Stockers_EMA100.csv": "39777a1ed47eb88c6600407797df5cd5ac00487968527832bff1aec78ec26ca4",
+    "artifacts/research/independent-nse-execution-price-v2/returns/all_histories-assume_total_loss:costs_tax-Stockers_EMA200.csv": "18e36d9a030a9c4a1b2dbe8241c012fcf656298fc6f166134a42bab5bbe0b14f",
+    "artifacts/research/independent-nse-execution-price-v2/returns/all_histories-assume_total_loss:costs_tax-Stockers_EMA300.csv": "979a6a14abc9bd39d55ce625d1a9d7b7fcd482a58e5db8cb7c9ef292347e3568",
+    "artifacts/research/independent-nse-execution-price-v2/returns/all_histories-assume_total_loss:costs_tax-EW.csv": "dc21cd0c1269baba6f33c9cb7f0ecb25bfb887a0a1d91b7e85168a24f51c7576",
+    "artifacts/research/independent-nse-execution-price-v2/returns/all_histories-assume_total_loss:costs_tax-low_vol12_top10.csv": "8278d0b0f25f13f69eb19234f6868aa2d7925f23c127b19396140895f2a1f460",
+    "artifacts/research/independent-nse-execution-price-v2/returns/all_histories-assume_total_loss:costs_tax-reversal_top10.csv": "b5cb2c51fe66a4ed456c5a49cc574e8db84d9ad216f155729d525e320ef906ce",
+    "artifacts/research/independent-nse-execution-price-v2/block_length_sensitivity.csv": "1f990c65d40398432d8fe834b73de22378f9db75610bd94edbe42bb738ad2a9b",
+    "artifacts/research/independent-nse-execution-price-v2/original_grid_statistics.json": "b0f45166a9ac1eb2f9f980f38c7b2d2df2ffda0a4e9f0f651343742a634aaceb",
+    "artifacts/research/independent-nse-execution-price-v2/statistics.json": "2e66752969b8474391ff69364ecd5dd85952f02127510a2ac13c4f2028c65a0b",
+    "artifacts/research/independent-nse-execution-price-v2/output_path_checks.json": "092c487dac87d1ea539e446742f0c6de187448014c28a349ac6b167bad0098f7",
+    "artifacts/research/independent-nse-execution-price-v2/failures.json": "a7898279fde638ea172760a93587dc223f8dfad344a5ab0dc9534042c820e152",
+    "artifacts/research/independent-nse-execution-price-v2/evidence.json": "01e8653fb59ef5b5576e5685b98d690f873d04e1c094ac14dca4c15b1a1dd7dc",
+    "artifacts/research/independent-nse-execution-price-v2/stockers_self_tests.log": "cf435a1b93d4ccf9a4793a9f7853543944bd01dbef2f30412c2fbe05702a8022"
+  }
+}
